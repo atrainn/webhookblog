@@ -29,11 +29,9 @@
     {% if object.categories %}
     | 
     {% endif %}
-			{% for category in object.categories %}
-     
-    <em>Posted In: 
-    <a href="{{ url( category ) }}">{{ category.name }}</a>  
-{% endfor %} </em>
+{% for category in object.categories %}     
+<a href="{{ url( category ) }}">{{ category.name }}</a>{% if not loop.last %},{% endif %}
+{% endfor %} 
           		  
 	{% if object.image %} 
 	<a href="{{ url(object) }}"><img src="{{ object.image.url }}" style="  

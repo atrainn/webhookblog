@@ -6,6 +6,11 @@
 {% block content %}
 
   <h1>{{ item.name }}</h1>
+  <h4>Available On:
+    {% for platform in item.platforms %}     
+<a href="{{ url( platform ) }}">{{ platform.name }}</a>{% if not loop.last %},{% endif %}
+{% endfor %} </h4>
+
     {% if item.image %}  
 {% for option in item.review_score %}
   {% if option.value %}
@@ -24,13 +29,17 @@
  {% endif %}
  {% endfor %}
 {% endif %}
-<p><em>Written by {{ item.author.first }} {{ item.author.last }} on {{ item.publish_date|date('F d Y') }}</em></p>
-  {{ item.body|safe }}
-   <hr/>
 
+  {{ item.body|safe }}
+
+   <hr/>
   
+ <h4>Should You Play It?</h4>
+ {{ item.short_version }}
+<hr/>
   {# List all images from this gallery. #}
   {% if item.optional_gallery %}
+
     <h2>Gallery</h2>
     <div class="row">
       {% for image in item.optional_gallery %}
@@ -53,7 +62,7 @@
     </div>
   {% endif %}
 
- 
+ <p><em>Published on {{ item.publish_date|date('F d Y') }}</em></p>
   <div id="disqus_thread"></div>
   <script type="text/javascript">
       /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

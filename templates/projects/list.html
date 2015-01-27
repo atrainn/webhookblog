@@ -1,5 +1,4 @@
 
-
 {# LIST VIEW OF ALL articles #}
 {# You can find a full list of variables to use on this page in your CMS. #}
 
@@ -16,15 +15,23 @@
   {# This is how you set pagination. #}
   {% set data = paginate(data, 5) %}
 
-  <h2>Projects</h2>
+  <h2>Blog</h2>
   <hr/>
-   {# Scaffolding only outputs the object.name, but feel to use any of the fields from your CMS form here. #}
+
+  {# Scaffolding only outputs the object.name, but feel to use any of the fields from your CMS form here. #}
   <div class="media">
     {% for object in data %}
   <a href="{{ url(object) }}">
             <h3 class="media-heading">{{ object.name }}</h3>
           </a>
             <em>{{ object.publish_date|date('F d Y') }}</em>
+
+    {% if object.types %}
+    | 
+    {% endif %}
+{% for type in object.types %}     
+<a href="{{ url( type ) }}">{{ type.name }}</a>{% if not loop.last %},{% endif %}
+{% endfor %} 
                 
   {% if object.image %} 
   <a href="{{ url(object) }}"><img src="{{ object.image.url }}" style="  
@@ -34,7 +41,7 @@
   object-fit: cover;
     overflow: hidden; "></a>
   {% endif %}
-  
+         
   <h4>{{ object.short_version }}</h4>
 
         <hr/>
@@ -44,15 +51,3 @@
   {% include "templates/partials/paginator.html" %}
 
 {% endblock %}
-
-
-
-
-<h2>Gallery</h2>
-    <div class="row">
-      {% for image in item.optional_audio %}
-        <div class="col-md-3">
-          <a href="{{ image.url }}" class="thumbnail">
-            <img src="{{ image|imageCrop(200,200) }}" class="img-responsive">
-          </a>
-        </div>

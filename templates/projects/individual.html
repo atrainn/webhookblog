@@ -6,39 +6,27 @@
 {% block content %}
 
  <h1>{{ item.name }}</h1>
+ {% if item.types %}
+ Posted In:
+{% endif %}
+{% for type in item.types %}     
+<a href="{{ url( type ) }}">{{ type.name }}</a>{% if not loop.last %},{% endif %}
+{% endfor %} 
  <hr />
- 
-  {% if item.image %}  
+{% if item.image %}  
 {% for option in item.template_type %}
   {% if option.value %}
  <img src="{{ item.image.url }}" class="img-responsive"/>
- <hr/>
  {% endif %}
  {% endfor %}
 {% endif %}
-<p>
+  {{ item.body|safe }}
 
-<em>Written by {{ item.author.first }} {{ item.author.last }}</em> <br />
-{% for category in item.categories %}
-  <em>Posted In:     
-    {% for category in item.categories %}
-    <a href="{{ url( category) }}">{{ category.name }}</a>  
-</em>
-{% endfor %} 
-{% endfor %}
-</p>
-
-  {{ item.body|safe }} 
-
-
-
-  <hr/>
-
-  
-
-  {# List all images from this gallery. #}
+ <hr/>
+ {# List all images from this gallery. #}
 
   {% if item.optional_gallery %}
+  
     <h2>Gallery</h2>
     <div class="row">
       {% for image in item.optional_gallery %}

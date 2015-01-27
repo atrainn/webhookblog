@@ -32,11 +32,8 @@
 |
 {% endif %}
 
-{% for platform in object.platforms %}
-       
-<a href="{{ url( platform ) }}">{{ platform.name }}</a>
-
-
+{% for platform in object.platforms %}     
+<a href="{{ url( platform ) }}">{{ platform.name }}</a>{% if not loop.last %},{% endif %}
 {% endfor %} 
 
 

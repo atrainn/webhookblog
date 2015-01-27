@@ -6,18 +6,18 @@
 {% block content %}
 
   <h1>{{ item.name }}</h1>
-  <hr/>
+    <hr/>
 {% for object in item.articles_in_this_category %}
    <a href="{{ url(object) }}">
             <h3 class="media-heading">{{ object.name }}</h3>
           </a>
             <em>{{ object.publish_date|date('F d Y') }}</em>
 
-    {% if object.platforms %}
+    {% if object.types %}
     | 
     {% endif %}
-{% for platform in object.platforms %}     
-<a href="{{ url( platform ) }}">{{ platform.name }}</a>{% if not loop.last %},{% endif %}
+{% for type in object.types %}     
+<a href="{{ url( type ) }}">{{ type.name }}</a>{% if not loop.last %},{% endif %}
 {% endfor %} 
                 
   {% if object.image %} 

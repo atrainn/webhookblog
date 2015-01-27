@@ -5,15 +5,36 @@
 
 {% block content %}
 
+  <h1>{{ item.name }}</h1>
+    <hr/>
 {% for object in item.articles_in_this_category %}
-  <a href="{{ url( article) }}">{{ object.name }}</a>
-  {{ object.body|safe }}
+   <a href="{{ url(object) }}">
+            <h3 class="media-heading">{{ object.name }}</h3>
+          </a>
+            <em>{{ object.publish_date|date('F d Y') }}</em>
 
-  {# Just in case they want to see the other categories this is related to. #}
-  This article relates to:
-  {% for category in object.categories %}
-    <a href="{{ url( category) }}">{{ category.name }}</a>  
-  {% endfor %}
+    {% if object.categories %}
+    | 
+    {% endif %}
+{% for category in object.categories %}     
+<a href="{{ url( category ) }}">{{ category.name }}</a>{% if not loop.last %},{% endif %}
+{% endfor %} 
+                
+  {% if object.image %} 
+  <a href="{{ url(object) }}"><img src="{{ object.image.url }}" style="  
+  height: 250px;
+  width: 100%;
+  background: pink;
+  object-fit: cover;
+    overflow: hidden; "></a>
+  {% endif %}
+         
+  <h4>{{ object.short_version }}</h4>
+
+        <hr/>
+
+
+
 {% endfor %}
 
 

@@ -6,36 +6,27 @@
 {% block content %}
 
  <h1>{{ item.name }}</h1>
+ {% if item.categories %}
+ Posted In:
+{% endif %}
+{% for category in item.categories %}     
+<a href="{{ url( category ) }}">{{ category.name }}</a>{% if not loop.last %},{% endif %}
+{% endfor %} 
  <hr />
- 
-  {% if item.image %}  
+{% if item.image %}  
 {% for option in item.template_type %}
   {% if option.value %}
  <img src="{{ item.image.url }}" class="img-responsive"/>
- <hr/>
  {% endif %}
  {% endfor %}
 {% endif %}
-<p>
-<em>Written by {{ item.author.first }} {{ item.author.last }}</em> <br />
-  <em>Posted In:     
-    {% for category in item.categories %}
-    <a href="{{ url( category) }}">{{ category.name }}</a>  
-{% endfor %} </em>
-</p>
-
   {{ item.body|safe }}
-  
 
-
-
-  <hr/>
-
-  
-
-  {# List all images from this gallery. #}
+ <hr/> 
+ {# List all images from this gallery. #}
 
   {% if item.optional_gallery %}
+ 
     <h2>Gallery</h2>
     <div class="row">
       {% for image in item.optional_gallery %}
@@ -46,7 +37,26 @@
         </div>
       {% endfor %}
     </div>
+     <br />
   {% endif %}
+
+  {% if item.optional_audio %}
+    <h3>{{ item.audio_name }}</h3>
+        <audio src="{{ item.optional_audio.url }}" controls></audio>
+         <br />
+  {% endif %}
+
+  {% if item.optional_file %}
+  <h3> {{ item.file_name }}</h3>
+    <a href ="{{ item.other_file.url }}" controls>Download me!</a>
+    {{ item.other_file.size }} {# Size in bytes #}
+    {{ item.other_file.type }} {# File type of the file #}
+  <br />
+  {% endif %}
+
+
+ 
+
 
   <em>Published on {{ item.publish_date|date('F d Y') }}</em>
 

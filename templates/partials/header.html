@@ -10,15 +10,17 @@
       </button>
       <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home"></span> {{ about.name }}</a>
     </div>
-
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       {% set types = getTypes() %}
       <ul class="nav navbar-nav">
         {% for type in types %}
          {% if type.name != 'Category' %}
+         {% if type.name != 'Platform' %}
+         {% if type.name != 'Type' %}
           <li {% if getCurrentUrl() == url(type) %}class="active" {% endif %}><a href="{{ url(type) }}">{{ type.name }}</a></li>
+          {% endif %}
+          {% endif %}
           {% endif %}
         {% endfor %}
         <li {% if getCurrentUrl() == "/about/" %}class="active" {% endif %}><a href="/about/">About me</a></li>
@@ -26,6 +28,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="http://www.twitter.com/{{ about.twitter_username }}">@{{ about.twitter_username }}</a></li>
         <li><a href="/rss.xml">RSS</a></li>
+        <li><a href="http://twitch.tv/atrainn">Twitch</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
