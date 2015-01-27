@@ -1,3 +1,4 @@
+<nav data-search-index="false">
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -25,11 +26,16 @@
         {% endfor %}
         <li {% if getCurrentUrl() == "/about/" %}class="active" {% endif %}><a href="/about/">About me</a></li>
       </ul>
+
       <ul class="nav navbar-nav navbar-right">
+        <li>  <form action="/search-results/" class="search-form" method="get" data-search-index="false" style="margin-top: 13px">
+  <input type="text" placeholder="search" id="tipue_search_input" name="q">
+</form></li>
         <li><a href="http://www.twitter.com/{{ about.twitter_username }}">@{{ about.twitter_username }}</a></li>
         <li><a href="/rss.xml">RSS</a></li>
         <li><a href="http://twitch.tv/atrainn">Twitch</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
+</nav>
 </nav>

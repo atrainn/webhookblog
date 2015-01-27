@@ -5,7 +5,7 @@
 {% extends "templates/partials/base.html" %}
 
 {% block content %}
-
+<nav data-search-index="false">
   {# Copy this to any page you want articles data on. #}
   {% set data = get('projects') %}
 
@@ -49,5 +49,5 @@
   </div>
   {# The actual pagination template, feel free to edit or replace the default one. #}
   {% include "templates/partials/paginator.html" %}
-
+</nav>
 {% endblock %}

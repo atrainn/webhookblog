@@ -1,10 +1,11 @@
+
 {# INDIVIDUAL VIEW FOR EACH articles #}
 {# You can find a full list of variables to use on this page in your CMS. #}
 
 {% extends "templates/partials/base.html" %}
 
 {% block content %}
-
+<nav data-search-index="false">
   <h1>{{ item.name }}</h1>
   <hr/>
 {% for object in item.articles_in_this_category %}
@@ -32,10 +33,11 @@
   <h4>{{ object.short_version }}</h4>
 
         <hr/>
+      
 
 
 
 {% endfor %}
 
-
+</nav>
 {% endblock %}
