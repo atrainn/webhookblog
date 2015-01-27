@@ -1,0 +1,87 @@
+{# YOUR HOMEPAGE #}
+
+{# First time seeing extend or blocks? Want to know how it works? Tutorial here: http://www.webhook.com #}
+{% extends "templates/partials/base.html" %}
+
+{% block content %}
+
+  {# Copy this to any page you want articles data on. #}
+  {% set data = get('blog', 'reviews', 'projects') %}
+
+  {# Sort by most recently published.#}
+  {% set data = data|sort("publish_date", true)%}
+
+  {# This is how you set pagination. #}
+  {% set data = paginate(data, 5) %}
+
+<h2>Recent Articles</h2>
+<hr/>
+  {% if data.length %}
+
+    {# Output articles sorted by most recent publish date #}
+    {% for object in data %}
+	
+	
+      <a href="{{ url(object) }}">
+        <h3 class="media-heading">{{ object.name }}</h3>
+        </a>
+            <p>
+        <em>{{ object.publish_date|date('F d Y') }}</em>  
+
+            {% if object.categories %}
+    | 
+    {% endif %}
+
+{% if object.platforms %}
+|
+{% endif %}
+<a href="{{ url( platform ) }}">{{ platform.name }}
+
+{% for platform in object.platforms %}
+
+     
+<a href="{{ url( platform ) }}">{{ platform.name }}</a>,
+
+{% endfor %} 
+
+      </p>
+	  {% if object.image %}
+    <a href="{{ url(object) }}">
+	  	<img src="{{ object.image.url }}" style="  
+		height: 250px;
+		width: 100%;
+		background: pink;
+		object-fit: cover;
+		overflow: hidden;	">
+  </a>
+		{% endif %}      
+       <h4>
+	  {% if object.score %}
+	  {% for option in object.review_score %}
+        {% if option.value %}
+          <strong>Score: </strong>{{ object.score }}
+          <br/>
+          {% endif %}
+        {% endfor %}
+	  {% endif %}
+
+	  {{ object.short_version }}</h4>
+      </p>
+
+
+
+      <hr/>
+
+      {{ item.body|safe }}
+
+    {% endfor %}
+    {# The actual pagination template, feel free to edit or replace the default one. #}
+    {% include "templates/partials/paginator.html" %}
+  {% else %}
+    <h2>Nothing to see here</h2>
+    <a href="/cms/">Duder, go add some articles to the CMS</a>
+  	{% endif %}
+
+
+{% endblock %}
+

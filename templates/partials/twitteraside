@@ -1,0 +1,15 @@
+<div class="text-center">
+  {% if about.name %}
+  <a href="/about/"><img src="{{ about.picture_of_you|imageCrop(140,140) }}" class="img-circle" /></a>
+    <h2>{{ about.name }}</h2>
+    <p class="lead">{{ about.one_liner_bio }}</p>
+
+    <a class="twitter-timeline" href="https://twitter.com/athomas90" data-widget-id="551516258320277504">Tweets by @athomas90</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  {% else %}
+    <h2>Who are you?</h2>
+    <a href="/cms/">Tell us about yourself in the CMS</a>
+  {% endif%}
+</div>
+
+

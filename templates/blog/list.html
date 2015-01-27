@@ -1,0 +1,55 @@
+
+{# LIST VIEW OF ALL articles #}
+{# You can find a full list of variables to use on this page in your CMS. #}
+
+{% extends "templates/partials/base.html" %}
+
+{% block content %}
+
+  {# Copy this to any page you want articles data on. #}
+  {% set data = get('blog') %}
+
+  {# Sort by most recently published.#}
+  {% set data = data|sort("publish_date", true)%}
+
+  {# This is how you set pagination. #}
+  {% set data = paginate(data, 5) %}
+
+  <h2>Blog</h2>
+  <hr/>
+
+  {# Scaffolding only outputs the object.name, but feel to use any of the fields from your CMS form here. #}
+  <div class="media">
+    {% for object in data %}
+	<a href="{{ url(object) }}">
+            <h3 class="media-heading">{{ object.name }}</h3>
+          </a>
+            <em>{{ object.publish_date|date('F d Y') }}</em>
+
+    {% if object.categories %}
+    | 
+    {% endif %}
+			{% for category in object.categories %}
+     
+    <em>Posted In: 
+    <a href="{{ url( category ) }}">{{ category.name }}</a>  
+{% endfor %} </em>
+          		  
+	{% if object.image %} 
+	<a href="{{ url(object) }}"><img src="{{ object.image.url }}" style="  
+	height: 250px;
+	width: 100%;
+	background: pink;
+	object-fit: cover;
+    overflow: hidden;	"></a>
+	{% endif %}
+         
+  <h4>{{ object.short_version }}</h4>
+
+        <hr/>
+    {% endfor %}
+  </div>
+  {# The actual pagination template, feel free to edit or replace the default one. #}
+  {% include "templates/partials/paginator.html" %}
+
+{% endblock %}

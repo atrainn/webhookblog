@@ -1,0 +1,9 @@
+<div class="text-center">
+  <h3>Categories</h3>
+  <br />
+  <p align="left"><h4>Blogs</h4></align></p>
+  {% for category in cms.category|sort('name') %}
+  <a href="{{ url( category) }}">{{ category.name }}</a>  
+{% endfor %}
+
+

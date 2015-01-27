@@ -1,0 +1,20 @@
+{# INDIVIDUAL VIEW FOR EACH articles #}
+{# You can find a full list of variables to use on this page in your CMS. #}
+
+{% extends "templates/partials/base.html" %}
+
+{% block content %}
+
+{% for object in item.articles_in_this_category %}
+  <a href="{{ url( article) }}">{{ object.name }}</a>
+  {{ object.body|safe }}
+
+  {# Just in case they want to see the other categories this is related to. #}
+  This article relates to:
+  {% for category in object.categories %}
+    <a href="{{ url( category) }}">{{ category.name }}</a>  
+  {% endfor %}
+{% endfor %}
+
+
+{% endblock %}
