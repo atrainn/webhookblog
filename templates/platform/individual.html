@@ -22,12 +22,8 @@
 {% endfor %} 
                 
   {% if object.image %} 
-  <a href="{{ url(object) }}"><img src="{{ object.image.url }}" style="  
-  height: 250px;
-  width: 100%;
-  background: pink;
-  object-fit: cover;
-    overflow: hidden; "></a>
+<a href="{{ url(object) }}"><div class="minhaClass" style="background-image:url({{ object.image.url }}); no-repeat center center;"></div></a>
+
   {% endif %}
          
   <h4>{{ object.short_version }}</h4>
